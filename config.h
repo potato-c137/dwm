@@ -3,7 +3,7 @@
 /* Constants */
 #define TERMINAL "st"
 #define TERMCLASS "St"
-#define BROWSER "librewolf"
+#define BROWSER "firefox"
 
 /* appearance */
 static unsigned int borderpx  = 3;        /* border pixel of windows */
@@ -16,7 +16,7 @@ static int swallowfloating    = 0;        /* 1 means swallow floating windows by
 static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static char *fonts[]          = { "Iosevka:size=12", "Iosevka:pixelsize=12:antialias=true:autohint=true"  };
+static char *fonts[]          = { "Iosevka:size=13", "Iosevka:pixelsize=13:antialias=true:autohint=true"  };
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -84,6 +84,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define MODKEY2 Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -131,13 +132,6 @@ ResourcePref resources[] = {
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
 
-/*BROWSER overide*/
-#ifdef BROWSER
-#undef BROWSER
-#define BROWSER "firefox"
-#endif
-
-
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	STACKKEYS(MODKEY,                          focus)
@@ -174,6 +168,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
 	{ MODKEY,			XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "lf", NULL } } },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
+    { MODKEY|ShiftMask,		XK_e,		spawn,		{.v = (const char*[]){ "virt-manager", NULL } } },
+    { MODKEY|ShiftMask,		XK_a,		spawn,		{.v = (const char*[]){ "telegram-desktop", NULL } } },
+    { MODKEY|ShiftMask,		XK_q,		spawn,		{.v = (const char*[]){ "whatsap-for-linux", NULL } } },
+    { MODKEY|ShiftMask,		XK_r,		spawn,		{.v = (const char*[]){ "discord", NULL } } },
     /*layouts*/
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} }, /* tile */
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} }, /* bstack */
@@ -193,7 +191,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		{.v = (const char*[]){ "mpc", "seek", "+60", NULL } } },
 	{ MODKEY,			XK_backslash,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
-
 	{ MODKEY,			XK_a,		togglegaps,	{0} },
 	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },
 	{ MODKEY,			XK_s,		togglesticky,	{0} },
@@ -272,13 +269,17 @@ static Key keys[] = {
 	/*{ 0, XF86XK_AudioMute,		spawn,		SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-; kill -44 $(pidof dwmblocks)") },*/
-	/* uses pamixer */
-    { 0, XF86XK_AudioMute,		spawn,		{.v = (const char *[]){"pamixer", "--toggle-mute", NULL}} },
+	/*I use pamixer */
+   /* { 0, XF86XK_AudioMute,		spawn,		{.v = (const char *[]){"pamixer", "--toggle-mute", NULL}} },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("audiotestval=$( pamixer --get-volume );if [ $audiotestval -lt 100 ];then pamixer -i 5; fi") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("audiotestval=$( pamixer --get-volume );if [ $audiotestval -ge 0 ];then pamixer -d 5; fi") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("audiotestval=$( pamixer --get-volume );if [ $audiotestval -ge 0 ];then pamixer -d 5; fi") }, */
+    { 0, XF86XK_AudioMute,		spawn,		SHCMD("~/.dwm/dwmDunstVol.sh toggle")},
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("~/.dwm/dwmDunstVol.sh +5%") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("~/.dwm/dwmDunstVol.sh -5%") },
+
 	{ 0, XF86XK_AudioPrev,		spawn,		{.v = (const char*[]){ "mpc", "prev", NULL } } },
 	{ 0, XF86XK_AudioNext,		spawn,		{.v = (const char*[]){ "mpc",  "next", NULL } } },
-    /*one key for play an pause*/
+    /*one key for play and pause*/
 /*	{ 0, XF86XK_AudioPause,		spawn,		{.v = (const char*[]){ "mpc", "pause", NULL } } }, */
 	{ 0, XF86XK_AudioPlay,		spawn,		{.v = (const char*[]){ "mpc", "toggle", NULL } } },
 	{ 0, XF86XK_AudioStop,		spawn,		{.v = (const char*[]){ "mpc", "stop", NULL } } },
@@ -291,7 +292,8 @@ static Key keys[] = {
 	{ 0, XF86XK_Sleep,		spawn,		{.v = (const char*[]){ "sudo", "-A", "zzz", NULL } } },
 	{ 0, XF86XK_WWW,		spawn,		{.v = (const char*[]){ BROWSER, NULL } } },
 	{ 0, XF86XK_DOS,		spawn,		{.v = termcmd } },
-	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") },
+/*	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") },*/
+	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("betterlockscreen -l") },
 	{ 0, XF86XK_TaskPane,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ 0, XF86XK_Mail,		spawn,		SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
 	{ 0, XF86XK_MyComputer,		spawn,		{.v = (const char*[]){ TERMINAL, "-e",  "lfub",  "/", NULL } } },
