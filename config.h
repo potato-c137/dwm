@@ -18,18 +18,7 @@ static int showbar            = 0;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static char *fonts[]          = { "Iosevka:size=13", "Iosevka:pixelsize=13:antialias=true:autohint=true"  };
 
-static char normbgcolor[]           = "#301c30";
-static char normbordercolor[]       = "#a19aa0";
-static char normfgcolor[]           = "#e6dce5";
-static char selfgcolor[]            = "#e6dce5";
-static char selbordercolor[]        = "#e6dce5";
-static char selbgcolor[]            = "#9b8ed7";
-
-static char *colors[][3] = {
-/*                      fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-};
+#include "colors.h" //edit colors.h for the colors
 
 typedef struct {
 	const char *name;
@@ -108,12 +97,12 @@ static const char *termcmd[]  = { TERMINAL, NULL };
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		{ "color0",		STRING,	&normbordercolor },
-		{ "color8",		STRING,	&selbordercolor },
-		{ "color0",		STRING,	&normbgcolor },
-		{ "color4",		STRING,	&normfgcolor },
-		{ "color0",		STRING,	&selfgcolor },
-		{ "color4",		STRING,	&selbgcolor },
+		{ "color0",		STRING,	&norm_border },
+		{ "color8",		STRING,	&sel_border },
+		{ "color0",		STRING,	&norm_bg },
+		{ "color4",		STRING,	&norm_fg },
+		{ "color0",		STRING,	&sel_fg },
+		{ "color4",		STRING,	&sel_bg },
 		{ "borderpx",		INTEGER, &borderpx },
 		{ "snap",		INTEGER, &snap },
 		{ "showbar",		INTEGER, &showbar },
