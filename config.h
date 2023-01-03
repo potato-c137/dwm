@@ -139,13 +139,14 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
 	{ MODKEY,			XK_Tab,		view,		{0} },
 	{ MODKEY,			XK_c,		killclient,	{0} },
+	{ MODKEY|ControlMask,			XK_q,		spawn,	SHCMD("~/dwm/killdwm.sh") },
     /*applications*/
 	{ MODKEY,			XK_w,		spawn,		{.v = (const char*[]){ BROWSER, NULL } } },
 	{ MODKEY,			XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "lf", NULL } } },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
     { MODKEY|ShiftMask,		XK_e,		spawn,		{.v = (const char*[]){ "virt-manager", NULL } } },
     { MODKEY|ShiftMask,		XK_a,		spawn,		{.v = (const char*[]){ "telegram-desktop", NULL } } },
-    { MODKEY|ShiftMask,		XK_q,		spawn,		{.v = (const char*[]){ "whatsap-for-linux", NULL } } },
+    { MODKEY|ShiftMask,		XK_q,		spawn,		{.v = (const char*[]){ "whatsapp-for-linux", NULL } } },
     { MODKEY|ShiftMask,		XK_z,		spawn,		{.v = (const char*[]){ "discord", NULL } } },
     /*layouts*/
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} }, /* tile */
@@ -179,8 +180,8 @@ static Key keys[] = {
     /* J and K are automatically bound above in STACKEYS */
 	{ MODKEY,			XK_h,		setmfact,	{.f = -0.05} },
 	{ MODKEY,			XK_l,		setmfact,      	{.f = +0.05} },
-    { MODKEY,			XK_Up,		setmfact,	{.f = -0.05} },
-	{ MODKEY,			XK_Down,		setmfact,      	{.f = +0.05} },
+    { MODKEY|ControlMask,			XK_Left,		setmfact,	{.f = -0.05} },
+	{ MODKEY|ControlMask,			XK_Right,		setmfact,      	{.f = +0.05} },
 	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },
     { MODKEY,           XK_apostrophe,   shiftview,  {.i= -1} },
 	{ MODKEY|ShiftMask,			XK_apostrophe,	togglescratch,	{.ui = 1} },
