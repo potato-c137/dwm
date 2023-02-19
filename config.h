@@ -142,7 +142,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,			XK_q,		spawn,	SHCMD("~/dwm/killdwm.sh") },
     /*applications*/
 	{ MODKEY,			XK_w,		spawn,		{.v = (const char*[]){ BROWSER, NULL } } },
-	{ MODKEY,			XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "lf", NULL } } },
+	{ MODKEY,			XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "ranger", NULL } } },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
     { MODKEY|ShiftMask,		XK_e,		spawn,		{.v = (const char*[]){ "virt-manager", NULL } } },
     { MODKEY|ShiftMask,		XK_a,		spawn,		{.v = (const char*[]){ "telegram-desktop", NULL } } },
