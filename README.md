@@ -1,5 +1,9 @@
 ### Bindings
 
+### moved from dwmbar to polybar with anybar
+
+issue it no workspaces for now
+
 ## Patches and features
 
 - [Clickable statusbar](https://dwm.suckless.org/patches/statuscmd/) with my build of [dwmblocks](https://github.com/lukesmithxyz/dwmblocks).
@@ -14,6 +18,7 @@
 - [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/): Gaps allowed across all layouts.
 - [swallow patch](https://dwm.suckless.org/patches/swallow/): if a program run from a terminal would make it inoperable, it temporarily takes its place to save space.
 - [autostart.sh](https://dwm.suckless.org/patches/autostart/): Runs the script at ~/.dwm/autostart.sh after it dwm is up, useful for startup apps
+- [anybar](https://dwm.suckless.org/patches/anybar): Runs polybar
 
 ### To Install
 
